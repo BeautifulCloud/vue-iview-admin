@@ -1,0 +1,47 @@
+/***
+ * @Autor: 刘轩亨
+ * @Date: 2021-08-31 09:11:20
+ * @Description: 
+ * @Version: 1.0
+ * @LastEditors: 刘轩亨
+ * @LastEditTime: 2021-08-31 11:26:01
+ */
+ @import '~view-design/src/styles/index.less';
+// Color
+@primary-color          : #F1F1B8;
+@info-color             : #F2DEBD;
+@success-color          : #B7D28D;
+@processing-color       : @primary-color;
+@warning-color          : #F3D64E;
+@error-color            : #F55066;
+@normal-color           : #B8F1CC;
+@link-color             : #0075a3;
+@tooltip-color          : #fff;
+@subsidiary-color       : #B8F1ED;
+@white: #fff;
+@black: #000;
+@i-font-color: #0075a3;
+ 
+.i-color-primary {
+  background-color:@primary-color;
+  color:@i-font-color;
+}
+.i-font-color{
+  color: @primary-color;
+}
+.i-h-shadow{
+  box-shadow: 0 1px 4px rgba(@primary-color,.20);
+}
+.i-v-shadow{
+  box-shadow: 0 1px 4px rgba(@primary-color,.35);
+}
+.i-border{
+  border: 1px solid desaturate(hsl(@primary-color), 20%);
+}
+.i-hover{
+  &:hover{ background-color:desaturate(hsl(@primary-color), 20%);color: @i-font-color !important;}
+}
+.i-active{
+  background-color:desaturate(hsl(@primary-color), 20%);
+  color: @i-font-color !important;
+}
