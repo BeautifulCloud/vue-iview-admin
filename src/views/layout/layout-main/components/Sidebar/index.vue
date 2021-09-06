@@ -4,7 +4,7 @@
  * @Description: sidebar侧边栏
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-01 15:54:57
+ * @LastEditTime: 2021-09-03 15:45:40
 -->
 <template>
   <div class="sidebar" :class="{'has-logo':showLogo}">
@@ -14,10 +14,10 @@
       width="auto"
       :theme="$store.state.settings.themeSidebar?'dark':'light'"
       :accordion="$store.state.settings.sidebarAccordion"
-      :open-names="[$store.state.menuActiveName]"
-      :active-name="$store.state.sidebarCollapsed?$store.state.menuActiveName:$store.state.dropdownActiveName"
+      :open-names="[menuActiveName]"
+      :active-name="collapsedState?menuActiveName:dropdownActiveName"
       class="sidebar-menu"
-      :class="['menu-item',$store.state.sidebarCollapsed ? 'collapsed-menu' : '']"
+      :class="['menu-item',collapsedState ? 'collapsed-menu' : '']"
     >
       <transition
         name="custom-classes-transition"
@@ -27,7 +27,7 @@
         enter-active-class="animate__animated animate__backInDown"
         leave-active-class="animate__animated animate__flipOutX"
       >
-        <dropdown-items v-if="$store.state.sidebarCollapsed" :menu-list="menuList" />
+        <dropdown-items v-if="collapsedState" :menu-list="menuList" />
         <submenu-items v-else :menu-list="menuList" />
       </transition>
     </Menu>
@@ -41,19 +41,27 @@ export default {
   name: 'Sidebar',
   components: { Logo, SubmenuItems, DropdownItems },
   data() {
-    return {
-      menuActiveName: 'home',
-      dropdownActiveName: '',
-      menuList: this.$store.state.menuList
-    }
+    return {}
   },
   computed: {
     showLogo() {
       return false
+    },
+    collapsedState() {
+      return this.$store.state.sidebar.sidebarCollapsed
+    },
+    menuActiveName() {
+      return this.$store.state.sidebar.menuActiveName
+    },
+    dropdownActiveName() {
+      return this.$store.state.sidebar.dropdownActiveName
+    },
+    menuList() {
+      return this.$store.state.sidebar.menuList
     }
   },
   watch: {
-    '$store.state.sidebarCollapsed'(newVal, oldVal) {
+    '$store.state.sidebar.sidebarCollapsed'(newVal, oldVal) {
       this.$nextTick(function () {
         this.$refs.sidebarMenu.updateOpened()
         this.$refs.sidebarMenu.updateActiveName()

@@ -4,13 +4,13 @@
  * @Description: 主菜单布局
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-01 14:07:53
+ * @LastEditTime: 2021-09-03 15:47:01
 -->
 <template>
   <Layout class="i-layout i-layout-left-menu">
     <Sider
       v-if="$store.state.settings.useSidebar"
-      v-model="$store.state.sidebarCollapsed"
+      v-model="$store.state.sidebar.sidebarCollapsed"
       hide-trigger
       collapsible
       :collapsed-width="78"

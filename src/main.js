@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-01 15:27:16
+ * @LastEditTime: 2021-09-06 16:30:39
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -21,10 +21,13 @@ import Request from './utils/request'
 import Tools from './utils/tools'
 import TypePicker from './utils/typePicker'
 // 样式
-import './assets/styles/styles.less'
 // import 'view-design/dist/styles/iview.css'
+import 'normalize.css'
 import 'animate.css'
+import 'nprogress/nprogress.css'
 import 'font-awesome/less/font-awesome.less'
+import '@/assets/styles/styles.less'
+
 // 方法
 // import changeThemeColor from './utils/theme'
 

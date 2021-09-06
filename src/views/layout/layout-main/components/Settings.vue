@@ -4,7 +4,7 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-01 19:23:49
+ * @LastEditTime: 2021-09-06 10:37:57
 -->
 <template>
   <div class="i-settings">
@@ -91,32 +91,32 @@ export default {
         {
           url: 'theme_base',
           name: '原始',
-          imgPath: require('@/assets/images/theme_base.png')
+          imgPath: require('@/assets/images/theme_image/theme_base.png')
         },
         {
           url: 'theme_concert',
           name: '音乐会',
-          imgPath: require('@/assets/images/theme_concert.png')
+          imgPath: require('@/assets/images/theme_image/theme_concert.png')
         },
         {
           url: 'theme_mkl',
           name: '马卡龙',
-          imgPath: require('@/assets/images/theme_mkl.png')
+          imgPath: require('@/assets/images/theme_image/theme_mkl.png')
         },
         {
           url: 'theme_lkk',
           name: '洛可可',
-          imgPath: require('@/assets/images/theme_lkk.png')
+          imgPath: require('@/assets/images/theme_image/theme_lkk.png')
         },
         {
           url: 'theme_mld',
           name: '莫兰迪',
-          imgPath: require('@/assets/images/theme_mld.png')
+          imgPath: require('@/assets/images/theme_image/theme_mld.png')
         },
         {
           url: 'theme_deep',
           name: '深海底',
-          imgPath: require('@/assets/images/theme_deep.png')
+          imgPath: require('@/assets/images/theme_image/theme_deep.png')
         }
       ],
       marks: {

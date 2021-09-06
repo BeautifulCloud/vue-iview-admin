@@ -1,11 +1,17 @@
 /***
  * @Autor: 刘轩亨
  * @Date: 2021-08-20 14:09:09
- * @Description:
+ * @Description: 
+ *  #关闭校验用法
+ *  #关闭段落校验：\/* eslint-disable *\/ -- \/* eslint-enable  *\/
+ *  #关闭下一行校验 // eslint-disable-next-line
+ *  #关闭当前行校验 // eslint-disable-line
  * @Version: 1.0
  * @LastEditors: 刘轩亨
  * @LastEditTime: 2021-08-24 15:21:34
  */
+
+// 宽松校验
 // module.exports = {
 //   root: true,
 //   env: {
@@ -21,6 +27,8 @@
 //     'prettier/prettier': 'off'
 //   },
 // };
+
+// 严格校验
 module.exports = {
   root: true,
   parserOptions: {
@@ -308,3 +316,4 @@ module.exports = {
     'array-bracket-spacing': [2, 'never'],
   }
 }
+

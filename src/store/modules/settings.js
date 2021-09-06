@@ -1,10 +1,10 @@
 /**
  * @Autor: 刘轩亨
  * @Date: 2021-08-26 16:50:29
- * @Description:
+ * @Description:设置缓存信息
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-01 19:01:53
+ * @LastEditTime: 2021-09-03 16:05:46
  */
 import { CHANGE_SETTINGS } from '../mutation-types'
 const state = {

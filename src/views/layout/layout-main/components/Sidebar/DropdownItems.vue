@@ -4,7 +4,7 @@
  * @Description: sideBar收起来
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-01 10:12:19
+ * @LastEditTime: 2021-09-03 15:50:15
 -->
 <template>
   <div class="sidebar-dropdown-block">
@@ -24,7 +24,7 @@
               <router-link :key="childItem.itemName" :to="childItem.path">
                 <DropdownItem
                   :name="itemsData.itemName+'-'+index"
-                  :selected="(itemsData.itemName+'-'+index) === $store.state.dropdownActiveName"
+                  :selected="(itemsData.itemName+'-'+index) === $store.state.sidebar.dropdownActiveName"
                   @click.native="menuClick(itemsData.itemName,itemsData.itemName+'-'+index)"
                 >{{ childItem.name }}</DropdownItem>
               </router-link>
@@ -53,6 +53,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'DropdownItems',
   props: {
@@ -66,15 +67,14 @@ export default {
   data() {
     return {}
   },
-
   methods: {
+    ...mapActions(['changeActiveName']),
     hasChild(children = []) {
       if (children.length === 0) return false
       else return true
     },
     menuClick(menuItemName = 'home', dropdownItemName = '') {
-      this.$store.commit('changeMenuActiveName', menuItemName)
-      this.$store.commit('changeDropdownActiveName', dropdownItemName)
+      this.changeActiveName({ menuItemName, dropdownItemName })
     }
   }
 }

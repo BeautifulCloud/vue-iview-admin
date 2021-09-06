@@ -4,7 +4,7 @@
  * @Description: sidebar展开
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-01 10:05:55
+ * @LastEditTime: 2021-09-03 15:56:24
 -->
 <template>
   <div class="sidebar-submenu-block">
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'SubmenuItems',
   props: {
@@ -65,13 +66,13 @@ export default {
     return {}
   },
   methods: {
+    ...mapActions(['changeActiveName']),
     hasChild(children = []) {
       if (children.length === 0) return false
       else return true
     },
     dropdownItemClick(menuItemName = 'home', dropdownItemName = '') {
-      this.$store.commit('changeMenuActiveName', menuItemName)
-      this.$store.commit('changeDropdownActiveName', dropdownItemName)
+      this.changeActiveName({ menuItemName, dropdownItemName })
     }
   }
 }

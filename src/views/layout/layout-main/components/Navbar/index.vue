@@ -4,7 +4,7 @@
  * @Description: NavBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-08-31 18:20:07
+ * @LastEditTime: 2021-09-03 15:59:10
 -->
 <template>
   <div class="i-navbar">
@@ -12,9 +12,9 @@
     <span
       v-if="$store.state.settings.showFoldIcon&&$store.state.settings.useSidebar"
       class="i-navbar-icon i-hover"
-      @click="changeSidebar"
+      @click="changeCollapsed"
     >
-      <i v-if="$store.state.sidebarCollapsed" class="fa fa-indent" aria-hidden="true"></i>
+      <i v-if="$store.state.sidebar.sidebarCollapsed" class="fa fa-indent" aria-hidden="true"></i>
       <i v-else class="fa fa-outdent" aria-hidden="true"></i>
     </span>
     <span
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Logo from './Logo.vue'
 import PoptipContent from './PoptipContent.vue'
 export default {
@@ -75,9 +76,7 @@ export default {
     }
   },
   methods: {
-    changeSidebar() {
-      this.$store.state.sidebarCollapsed = !this.$store.state.sidebarCollapsed
-    },
+    ...mapActions(['changeCollapsed']),
     refreshRoute() {
       const _this = this
       this.refreshSpin = true

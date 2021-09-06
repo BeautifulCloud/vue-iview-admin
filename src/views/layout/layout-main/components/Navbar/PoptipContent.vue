@@ -4,7 +4,7 @@
  * @Description: poptip内的菜单内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-08-31 18:26:11
+ * @LastEditTime: 2021-09-03 16:02:16
 -->
 <template>
   <div class="i-poptip-content">
@@ -40,26 +40,28 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'PoptipContent',
   data() {
-    return {
-      menuList: this.$store.state.menuList
-    }
+    return {}
   },
   computed: {
     activeTagname() {
-      return this.$store.state.dropdownActiveName
+      return this.$store.state.sidebar.dropdownActiveName
+    },
+    menuList() {
+      return this.$store.state.sidebar.menuList
     }
   },
   methods: {
+    ...mapActions(['changeActiveName']),
     hasChild(children = []) {
       if (children.length === 0) return false
       else return true
     },
     tagItemClick(menuItemName = 'home', dropdownItemName = '') {
-      this.$store.commit('changeMenuActiveName', menuItemName)
-      this.$store.commit('changeDropdownActiveName', dropdownItemName)
+      this.changeActiveName({ menuItemName, dropdownItemName })
     }
   }
 }

@@ -4,7 +4,7 @@
  * @Description: Logo
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-08-31 14:50:24
+ * @LastEditTime: 2021-09-03 15:34:10
 -->
 <template>
   <div
@@ -13,7 +13,7 @@
   >
     <transition name="sidebarLogoFade">
       <router-link
-        v-if="$store.state.sidebarCollapsed"
+        v-if="$store.state.sidebar.sidebarCollapsed"
         key="collapse"
         class="i-sidebar-logo-link"
         to="/"
