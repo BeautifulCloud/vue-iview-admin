@@ -4,10 +4,11 @@
  * @Description:设置缓存信息
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-03 16:05:46
+ * @LastEditTime: 2021-09-07 16:26:56
  */
 import { CHANGE_SETTINGS } from '../mutation-types'
 const state = {
+  themeName: 'theme_base',
   useSidebar: true,
   themeSidebar: false,
   fixedSidebar: true,
@@ -24,7 +25,6 @@ const mutations = {
   [CHANGE_SETTINGS]: (state, { key, value }) => {
     // eslint-disable-next-line
     if (state.hasOwnProperty(key)) state[key] = value
-    // state[key] = value
   }
 }
 const actions = {

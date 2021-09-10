@@ -4,14 +4,14 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-06 16:43:23
+ * @LastEditTime: 2021-09-07 15:55:07
  */
 import Layout from '@/views/layout/layout-main/index'
 const basePath = '@/views/back-views'
 const ErrorLogPath = '/user-log/error-log'
 const SuccessLogPath = '/user-log/success-log'
 
-export default [
+const backRoutes = [
   {
     path: '/back',
     component: Layout,
@@ -45,3 +45,4 @@ export default [
     ]
   }
 ]
+export default backRoutes

@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-06 16:30:39
+ * @LastEditTime: 2021-09-10 11:48:56
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -28,7 +28,7 @@ import 'nprogress/nprogress.css'
 import 'font-awesome/less/font-awesome.less'
 import '@/assets/styles/styles.less'
 
-// 方法
+// 自定义修改主题方法
 // import changeThemeColor from './utils/theme'
 
 Vue.prototype.$axios = Axios
@@ -100,15 +100,33 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  created() {
+    // 在页面加载时读取sessionStorage里的状态信息
+    if (Utils.selectSStorage('store')) {
+      const oldState = Utils.getSStorage('store')
+      this.$store.replaceState(Object.assign({}, this.$store.state, oldState))
+      Utils.deleteSStorage('store')
+    }
+    if (Utils.selectLStorage('settings')) {
+      const settingsState = Utils.getLStorage('settings')
+      Object.keys(settingsState).forEach((key) => {
+        this.$store.commit('CHANGE_SETTINGS', { key, value: settingsState[key] })
+      })
+    }
+    // 在页面刷新时将vuex里的信息保存到sessionStorage里
+    window.addEventListener('beforeunload', () => {
+      Utils.setSStorage('store', this.$store.state)
+      Utils.setLStorage('settings', this.$store.state.settings)
+    })
+  },
   mounted() {
-    if (this.$utils.selectLStorage('themeName')) {
-      const themeName = this.$utils.getLStorage('themeName')
+    if (Utils.selectLStorage('themeName')) {
+      const themeName = Utils.getLStorage('themeName')
       import('./assets/themes/' + themeName + '.less')
-      // changeThemeColor(themeName)
+      this.$store.commit('CHANGE_SETTINGS', { key: 'themeName', value: themeName })
     } else {
-      this.$utils.setLStorage('themeName', 'theme_base')
+      Utils.setLStorage('themeName', 'theme_base')
       import('./assets/themes/theme_base.less')
-      // changeThemeColor('theme_base')
     }
   },
   render: (h) => h(App)

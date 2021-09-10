@@ -4,8 +4,43 @@
  * @Description:sideBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-06 16:52:39
+ * @LastEditTime: 2021-09-10 11:16:32
  */
+import router, { resetRouter } from '@/router/index'
+import FrontRoutes from '@/router/modules/front'
+import BackRoutes from '@/router/modules/back'
+
+/**
+ * @func
+ * @desc s使用roleViews来确定是否有权限展示页面
+ * @param {}
+ * @return {}
+ */
+function inRoleViews(roleViews, route) {
+  if (!route.meta || roleViews.includes(route.meta.name)) return true
+  else return true
+}
+
+/**
+ * @func filterRoutes
+ * @desc 通过递归过滤前/后台路由表获得选中的路由
+ * @param routes
+ * @param roleViews
+ * @return {}
+ */
+function filterRoutes(routes, roleViews) {
+  const filteredRts = []
+  routes.forEach((route) => {
+    const temp = { ...route }
+    if (!temp.hidden && inRoleViews(roleViews, route)) {
+      if (temp.children && temp.children.length > 1) {
+        temp.children = filterRoutes(temp.children, roleViews)
+      }
+      filteredRts.push(temp)
+    }
+  })
+  return filteredRts
+}
 
 const state = {
   sidebarCollapsed: false,
@@ -75,7 +110,9 @@ const state = {
       icon: 'logo-android',
       children: []
     }
-  ]
+  ],
+  frontMenuList: [],
+  backMenuList: []
 }
 
 const mutations = {
@@ -87,6 +124,14 @@ const mutations = {
   },
   CHANGE_DROPDOWN_ACTIVE_NAME(state, dropdownItemName) {
     state.dropdownActiveName = dropdownItemName
+  },
+  GENERATE_FRONT_ROUTES(state, routes) {
+    state.frontMenuList = routes
+    router.addRoutes(routes)
+  },
+  GENERATE_BACK_ROUTES(state, routes) {
+    state.backMenuList = routes
+    router.addRoutes(routes)
   }
 }
 
@@ -98,6 +143,24 @@ const actions = {
     const { menuItemName, dropdownItemName } = data
     commit('CHANGE_MENU_ACTIVE_NAME', menuItemName)
     commit('CHANGE_DROPDOWN_ACTIVE_NAME', dropdownItemName)
+  },
+  generateRoutes({ commit }, data) {
+    const { type, names } = data
+    resetRouter()
+    if (type === 'front') {
+      return new Promise((resolve) => {
+        const frontRoute = filterRoutes(FrontRoutes, names)
+        commit('GENERATE_FRONT_ROUTES', frontRoute)
+        resolve()
+      })
+    }
+    if (type === 'back') {
+      return new Promise((resolve) => {
+        const backRoute = filterRoutes(BackRoutes, names)
+        commit('GENERATE_BACK_ROUTES', backRoute)
+        resolve()
+      })
+    }
   }
 }
 

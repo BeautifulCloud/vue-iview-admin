@@ -4,7 +4,7 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-06 10:37:57
+ * @LastEditTime: 2021-09-09 10:16:12
 -->
 <template>
   <div class="i-settings">
@@ -81,7 +81,6 @@
 </template>
 
 <script>
-import ChangeThemeColor from '@/utils/theme.js'
 import { mapActions } from 'vuex'
 export default {
   name: 'Settings',
@@ -137,12 +136,12 @@ export default {
   computed: {
     themeName: {
       get() {
-        return this.$utils.getLStorage('themeName')
+        return this.$store.state.settings.themeName
       },
       set(val) {
-        this.$utils.setLStorage('themeName', val)
+        this.changeSettings({ key: 'themeName', value: val })
         import('@/assets/themes/' + val + '.less?')
-        ChangeThemeColor(val)
+        this.$utils.setLStorage('themeName', val)
       }
     },
     useSidebar: {
@@ -190,7 +189,8 @@ export default {
         return this.$store.state.settings.showSetting
       },
       set(val) {
-        this.changeSettings({ key: 'showSetting', value: val })
+        // this.changeSettings({ key: 'showSetting', value: val })
+        this.generateFrontRoutes({ type: 'front', names: ['Receive', 'Content', 'Test1', 'Test2', 'Test3'] })
       }
     },
     showTagsView: {
@@ -234,11 +234,8 @@ export default {
       }
     }
   },
-  mounted() {
-    this.themeName = this.$utils.getLStorage('themeName')
-  },
   methods: {
-    ...mapActions(['changeSettings'])
+    ...mapActions(['changeSettings', 'generateRoutes'])
   }
 }
 </script>
