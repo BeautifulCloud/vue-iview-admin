@@ -224,7 +224,6 @@ export default {
    *获取 URL 的路径
    * */
   getLocationPathname: () => {
-    console.log(window.location.pathname);
     return window.location.pathname;
   },
 
@@ -345,7 +344,6 @@ export default {
    * */
   clearLStorage() {
     window.localStorage.clear();
-    console.log('123123');
   },
 
   /**

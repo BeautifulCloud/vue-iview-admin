@@ -4,12 +4,13 @@
  * @Description:  路由index.js
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-09 10:46:10
+ * @LastEditTime: 2021-09-13 14:36:01
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 import NProgress from 'nprogress'
-// import Layout from '@/views/layout/layout-main/index.vue'
+import Util from '@/utils/util'
 
 Vue.use(VueRouter)
 
@@ -20,36 +21,6 @@ const routes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/home',
-  //   children: [
-  //     {
-  //       path: 'home',
-  //       name: 'Home',
-  //       component: () => import('@/views/Home.vue')
-  //     },
-  //     {
-  //       path: 'blank',
-  //       name: 'Blank',
-  //       component: () => import('@/views/Blank.vue')
-  //     },
-  //     {
-  //       path: 'test',
-  //       name: 'Test',
-  //       component: () => import('@/views/test')
-  //     },
-  //     {
-  //       path: 'about',
-  //       name: 'About',
-  //       // route level code-splitting
-  //       // this generates a separate chunk (about.[hash].js) for this route
-  //       // which is lazy-loaded when the route is visited.
-  //       component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  //     }
-  //   ]
-  // },
   { path: '/401', component: () => import('@/views/error-page/401.vue'), hidden: true },
   { path: '/404', component: () => import('@/views/error-page/404.vue'), hidden: true },
   { path: '/500', component: () => import('@/views/error-page/500.vue'), hidden: true },
@@ -66,9 +37,28 @@ requireContext.keys().forEach((filename) => {
 
 const createRouter = () => new VueRouter({ routes })
 const router = createRouter()
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  debugger
   NProgress.start()
-  next()
+  if (store.state.user.token && to.path !== '/') {
+    const frontMenu = store.state.sidebar.frontMenuList
+    const backMenu = store.state.sidebar.backMenuList
+    if (to.path === '/login') {
+      if (frontMenu) next({ path: '/front/home/index', replace: true })
+      else if (backMenu) next({ path: '/back/home/index', replace: true })
+      else next({ path: '/login', replace: true })
+    } else {
+      if (frontMenu.length > 0 || backMenu.length > 0) {
+        next()
+      } else {
+        const frontNames = Util.getLStorage('user').frontViewNames
+        const backNames = Util.getLStorage('user').backViewNames
+        await store.dispatch('generateRoutes', { type: 'front', names: frontNames })
+        await store.dispatch('generateRoutes', { type: 'back', names: backNames })
+        next({ ...to, replace: true })
+      }
+    }
+  } else next({ path: '/login', replace: true })
 })
 router.afterEach((route) => {
   NProgress.done()

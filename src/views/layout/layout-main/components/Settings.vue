@@ -4,7 +4,7 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-09 10:16:12
+ * @LastEditTime: 2021-09-10 12:01:20
 -->
 <template>
   <div class="i-settings">
@@ -141,7 +141,6 @@ export default {
       set(val) {
         this.changeSettings({ key: 'themeName', value: val })
         import('@/assets/themes/' + val + '.less?')
-        this.$utils.setLStorage('themeName', val)
       }
     },
     useSidebar: {

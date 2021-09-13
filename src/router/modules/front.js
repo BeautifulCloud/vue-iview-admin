@@ -4,52 +4,58 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-09 09:13:49
+ * @LastEditTime: 2021-09-10 14:36:05
  */
 import Layout from '@/views/layout/layout-main/index'
-const basePath = '@/views/front-views'
-const ReceivePath = '/receive/index'
+const Home = 'Home.vue'
+const FileReceive = 'front-views/receive/fileReceive/index.vue'
+const About = 'About.vue'
 
 const frontRoutes = [
   {
-    path: '/home',
+    path: '/front/home',
     component: Layout,
-    redirect: '/home/index',
+    redirect: '/front/home/index',
+    hidden: false,
+    alwaysShow: false,
     children: [
       {
         path: 'index',
         name: 'Home',
-        component: () => import('@/views/Home.vue'),
+        component: () => import('@/views/' + Home),
+        hidden: false,
         meta: {
-          title: '首页', // 设置该路由在侧边栏和面包屑中展示的名字
-          icon: 'md-home', // 设置该路由的图标
-          noCache: true, // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
-          breadcrumb: false, //  如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)
-          affix: true // 如果设置为true，它则会固定在tags-view中(默认 false)
-        },
-        hidden: false
+          title: '首页',
+          icon: 'md-home',
+          toPath: '/front/home/index',
+          noCache: true,
+          breadcrumb: false,
+          affix: true
+        }
       }
-    ],
-    hidden: false
+    ]
   },
   {
     path: '/front/receive',
+    name: 'Receive',
     component: Layout,
     redirect: '/front/receive/index',
     hidden: false,
+    alwaysShow: true,
+    meta: { title: '档案管理', icon: 'md-headset' },
     children: [
       {
         path: 'index',
-        name: 'Receive',
-        component: () => Promise.resolve(require(`${basePath + ReceivePath}`).default),
+        name: 'FileReceive',
+        component: () => import('@/views/' + FileReceive),
+        hidden: false,
         meta: {
-          title: '档案接收', // 设置该路由在侧边栏和面包屑中展示的名字
-          icon: 'icon-receive', // 设置该路由的图标
-          noCache: false, // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
-          breadcrumb: false, //  如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)
-          affix: true // 如果设置为true，它则会固定在tags-view中(默认 false)
-        },
-        hidden: false
+          title: '档案接收',
+          toPath: '/front/receive/index',
+          noCache: false,
+          breadcrumb: false,
+          affix: true
+        }
       }
     ]
   },
@@ -67,36 +73,39 @@ const frontRoutes = [
       {
         path: 'test1',
         name: 'Test1',
-        component: () => Promise.resolve(require(`${basePath + ReceivePath}`).default),
+        component: () => import('@/views/' + About),
         meta: {
-          title: '文章管理', // 设置该路由在侧边栏和面包屑中展示的名字
-          noCache: false, // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
-          breadcrumb: false, //  如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)
-          affix: true // 如果设置为true，它则会固定在tags-view中(默认 false)
+          title: '文章管理',
+          toPath: '/front/content/test1',
+          noCache: false,
+          breadcrumb: false,
+          affix: true
         },
         hidden: false
       },
       {
         path: 'test2',
         name: 'Test2',
-        component: () => Promise.resolve(require(`${basePath + ReceivePath}`).default),
+        component: () => import('@/views/' + About),
         meta: {
-          title: '评论管理', // 设置该路由在侧边栏和面包屑中展示的名字
-          noCache: false, // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
-          breadcrumb: false, //  如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)
-          affix: true // 如果设置为true，它则会固定在tags-view中(默认 false)
+          title: '评论管理',
+          toPath: '/front/content/test2',
+          noCache: false,
+          breadcrumb: false,
+          affix: true
         },
         hidden: false
       },
       {
         path: 'test3',
         name: 'Test3',
-        component: () => Promise.resolve(require(`${basePath + ReceivePath}`).default),
+        component: () => import('@/views/' + About),
         meta: {
-          title: '举报管理', // 设置该路由在侧边栏和面包屑中展示的名字
-          noCache: false, // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
-          breadcrumb: false, //  如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)
-          affix: true // 如果设置为true，它则会固定在tags-view中(默认 false)
+          title: '举报管理',
+          toPath: '/front/content/test3',
+          noCache: false,
+          breadcrumb: false,
+          affix: true
         },
         hidden: false
       }

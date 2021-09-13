@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-10 11:48:56
+ * @LastEditTime: 2021-09-13 14:35:07
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -102,32 +102,30 @@ new Vue({
   store,
   created() {
     // 在页面加载时读取sessionStorage里的状态信息
-    if (Utils.selectSStorage('store')) {
-      const oldState = Utils.getSStorage('store')
-      this.$store.replaceState(Object.assign({}, this.$store.state, oldState))
-      Utils.deleteSStorage('store')
-    }
-    if (Utils.selectLStorage('settings')) {
+    // if (Utils.selectSStorage('store')) {
+    //   const oldState = Utils.getSStorage('store')
+    //   this.$store.replaceState(Object.assign({}, this.$store.state, oldState))
+    //   Utils.deleteSStorage('store')
+    // }
+    if (!Utils.selectSStorage('store') && Utils.selectLStorage('settings')) {
       const settingsState = Utils.getLStorage('settings')
       Object.keys(settingsState).forEach((key) => {
         this.$store.commit('CHANGE_SETTINGS', { key, value: settingsState[key] })
       })
     }
-    // 在页面刷新时将vuex里的信息保存到sessionStorage里
+    if (!Utils.selectSStorage('store') && Utils.selectLStorage('user')) {
+      const userData = Utils.getLStorage('user')
+      Object.keys(userData).forEach((key) => {
+        this.$store.commit('COMMIT_USER_DATA', { key, value: userData[key] })
+      })
+    }
     window.addEventListener('beforeunload', () => {
-      Utils.setSStorage('store', this.$store.state)
       Utils.setLStorage('settings', this.$store.state.settings)
+      Utils.setLStorage('user', this.$store.state.user)
     })
   },
   mounted() {
-    if (Utils.selectLStorage('themeName')) {
-      const themeName = Utils.getLStorage('themeName')
-      import('./assets/themes/' + themeName + '.less')
-      this.$store.commit('CHANGE_SETTINGS', { key: 'themeName', value: themeName })
-    } else {
-      Utils.setLStorage('themeName', 'theme_base')
-      import('./assets/themes/theme_base.less')
-    }
+    import('./assets/themes/' + this.$store.getters.themeName + '.less')
   },
   render: (h) => h(App)
 }).$mount('#app')

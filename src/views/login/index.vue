@@ -4,7 +4,7 @@
  * @Description: 登陆页面
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-10 11:32:49
+ * @LastEditTime: 2021-09-13 10:47:29
 -->
 <template>
   <div class="i-login">
@@ -46,6 +46,7 @@ export default {
     login(data) {
       const { account, password } = data
       if (account === 'admin' && password === '2580') {
+        this.$utils.setLStorage('user', this.$store.user)
         if (!this.autoOptions.indexOf(account)) this.autoOptions.push(account)
         this.$utils.setLStorage('autoOptions', this.autoOptions)
         // TODO 下面代码要加到登陆和切换角色处
@@ -64,7 +65,7 @@ export default {
               this.generateRoutes({ type: 'back', names })
             })
             .then(() => {
-              this.$router.push({ path: '/home' })
+              this.$router.push({ path: '/front/home' })
             })
         } else if (frontNames.length && !backNames.length) {
           this.setFrontNames(frontNames)
@@ -72,7 +73,7 @@ export default {
               this.generateRoutes({ type: 'front', names })
             })
             .then(() => {
-              this.$router.push({ path: '/home' })
+              this.$router.push({ name: 'Home' })
             })
         } else {
           this.setBackNames(backNames)

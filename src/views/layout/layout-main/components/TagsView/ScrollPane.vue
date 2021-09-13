@@ -1,10 +1,10 @@
 <!--
  * @Autor: 刘轩亨
  * @Date: 2021-09-02 08:53:20
- * @Description: 
+ * @Description: 滚动的容器
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-02 08:53:20
+ * @LastEditTime: 2021-09-10 14:26:50
 -->
 <template>
   <div ref="viewScroll" class="i-tags-view-scroll">

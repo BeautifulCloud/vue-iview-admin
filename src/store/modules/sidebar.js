@@ -4,9 +4,9 @@
  * @Description:sideBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-10 11:16:32
+ * @LastEditTime: 2021-09-13 11:19:28
  */
-import router, { resetRouter } from '@/router/index'
+import router from '@/router/index'
 import FrontRoutes from '@/router/modules/front'
 import BackRoutes from '@/router/modules/back'
 
@@ -18,7 +18,7 @@ import BackRoutes from '@/router/modules/back'
  */
 function inRoleViews(roleViews, route) {
   if (!route.meta || roleViews.includes(route.meta.name)) return true
-  else return true
+  else return false
 }
 
 /**
@@ -146,7 +146,6 @@ const actions = {
   },
   generateRoutes({ commit }, data) {
     const { type, names } = data
-    resetRouter()
     if (type === 'front') {
       return new Promise((resolve) => {
         const frontRoute = filterRoutes(FrontRoutes, names)

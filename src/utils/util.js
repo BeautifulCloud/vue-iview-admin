@@ -4,7 +4,7 @@
  * @Description:工具类文件
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-08-27 22:48:48
+ * @LastEditTime: 2021-09-10 16:50:35
  */
 
 import Vue from 'vue'
@@ -229,7 +229,6 @@ export default {
    *获取 URL 的路径
    * */
   getLocationPathname: () => {
-    console.log(window.location.pathname)
     return window.location.pathname
   },
 
@@ -350,7 +349,6 @@ export default {
    * */
   clearLStorage: () => {
     window.localStorage.clear()
-    console.log('123123')
   },
 
   /**

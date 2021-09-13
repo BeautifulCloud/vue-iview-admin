@@ -4,15 +4,15 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-06 14:24:56
+ * @LastEditTime: 2021-09-10 14:21:37
 -->
 <template>
-  <div>receive</div>
+  <div>FileReceive</div>
 </template>
 
 <script>
 export default {
-  name: 'Receive',
+  name: 'FileReceive',
   data() {
     return {}
   }
