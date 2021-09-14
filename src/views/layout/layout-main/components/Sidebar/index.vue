@@ -4,7 +4,7 @@
  * @Description: sidebar侧边栏
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-03 15:45:40
+ * @LastEditTime: 2021-09-14 21:34:33
 -->
 <template>
   <div class="sidebar" :class="{'has-logo':showLogo}">
@@ -27,8 +27,8 @@
         enter-active-class="animate__animated animate__backInDown"
         leave-active-class="animate__animated animate__flipOutX"
       >
-        <dropdown-items v-if="collapsedState" :menu-list="menuList" />
-        <submenu-items v-else :menu-list="menuList" />
+        <dropdown-items v-if="collapsedState" />
+        <submenu-items v-else />
       </transition>
     </Menu>
   </div>
@@ -55,9 +55,6 @@ export default {
     },
     dropdownActiveName() {
       return this.$store.state.sidebar.dropdownActiveName
-    },
-    menuList() {
-      return this.$store.state.sidebar.menuList
     }
   },
   watch: {

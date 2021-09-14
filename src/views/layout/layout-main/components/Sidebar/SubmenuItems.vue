@@ -50,14 +50,7 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'SubmenuItems',
-  props: {
-    // menuList: {
-    //   type: Array,
-    //   default() {
-    //     return []
-    //   }
-    // }
-  },
+  props: {},
   data() {
     return {}
   },
