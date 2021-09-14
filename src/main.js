@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-13 14:35:07
+ * @LastEditTime: 2021-09-14 16:53:08
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -107,21 +107,18 @@ new Vue({
     //   this.$store.replaceState(Object.assign({}, this.$store.state, oldState))
     //   Utils.deleteSStorage('store')
     // }
-    if (!Utils.selectSStorage('store') && Utils.selectLStorage('settings')) {
+    if (Utils.selectLStorage('settings')) {
       const settingsState = Utils.getLStorage('settings')
       Object.keys(settingsState).forEach((key) => {
         this.$store.commit('CHANGE_SETTINGS', { key, value: settingsState[key] })
       })
     }
-    if (!Utils.selectSStorage('store') && Utils.selectLStorage('user')) {
-      const userData = Utils.getLStorage('user')
-      Object.keys(userData).forEach((key) => {
-        this.$store.commit('COMMIT_USER_DATA', { key, value: userData[key] })
-      })
+    if (Utils.selectLStorage('token')) {
+      const token = Utils.getLStorage('token')
+      this.$store.commit('COMMIT_USER_DATA', { key: 'token', value: token })
     }
     window.addEventListener('beforeunload', () => {
       Utils.setLStorage('settings', this.$store.state.settings)
-      Utils.setLStorage('user', this.$store.state.user)
     })
   },
   mounted() {

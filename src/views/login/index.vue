@@ -4,7 +4,7 @@
  * @Description: 登陆页面
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-13 10:47:29
+ * @LastEditTime: 2021-09-14 17:39:57
 -->
 <template>
   <div class="i-login">
@@ -42,16 +42,31 @@ export default {
     this.$utils.selectLStorage('autoOptions') ? (this.autoOptions = this.$utils.getLStorage('autoOptions')) : this.$utils.setLStorage('autoOptions', [])
   },
   methods: {
-    ...mapActions(['generateRoutes', 'setFrontNames', 'setBackNames']),
+    ...mapActions(['generateRoutes', 'setFrontNames', 'setBackNames', 'setChildViewSettings']),
     login(data) {
       const { account, password } = data
       if (account === 'admin' && password === '2580') {
-        this.$utils.setLStorage('user', this.$store.user)
         if (!this.autoOptions.indexOf(account)) this.autoOptions.push(account)
+        this.$utils.setLStorage('token', this.$store.user.token)
         this.$utils.setLStorage('autoOptions', this.autoOptions)
         // TODO 下面代码要加到登陆和切换角色处
-        const frontNames = ['Receive', 'Content', 'Test1', 'Test2', 'Test3']
+        const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2']
         const backNames = []
+        const childViewSettings = [
+          { pagename: 'Home', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false },
+          { pagename: 'FileReceive', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false },
+          { pagename: 'Test1', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false },
+          {
+            pagename: 'Test2',
+            pageShow: true,
+            childPage: [
+              { pagename: 'ChildPage1', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false },
+              { pagename: 'ChildPage2', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false },
+              { pagename: 'ChildPage3', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false }
+            ]
+          }
+        ]
+        this.setChildViewSettings(childViewSettings)
         if (!frontNames.length && !backNames.length) this.$Message.error('您没有权限进入系统')
         else if (frontNames.length && backNames.length) {
           this.setFrontNames(frontNames)

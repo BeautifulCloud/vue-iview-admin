@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-10 14:36:05
+ * @LastEditTime: 2021-09-14 09:26:47
  */
 import Layout from '@/views/layout/layout-main/index'
 const Home = 'Home.vue'
@@ -37,12 +37,11 @@ const frontRoutes = [
   },
   {
     path: '/front/receive',
-    name: 'Receive',
     component: Layout,
     redirect: '/front/receive/index',
     hidden: false,
     alwaysShow: true,
-    meta: { title: '档案管理', icon: 'md-headset' },
+    meta: { title: '档案管理', icon: 'md-headset', name: 'Receive' },
     children: [
       {
         path: 'index',
@@ -61,13 +60,14 @@ const frontRoutes = [
   },
   {
     path: '/front/content',
-    name: 'Content',
     component: Layout,
     redirect: '/front/content/test1',
     hidden: false,
+    alwaysShow: true,
     meta: {
       title: '内容管理',
-      icon: 'md-headset'
+      icon: 'md-headset',
+      name: 'Content'
     },
     children: [
       {
@@ -108,6 +108,29 @@ const frontRoutes = [
           affix: true
         },
         hidden: false
+      }
+    ]
+  },
+  {
+    path: '/front/home1',
+    component: Layout,
+    redirect: '/front/home/index',
+    hidden: false,
+    alwaysShow: false,
+    children: [
+      {
+        path: 'index',
+        name: 'Home1',
+        component: () => import('@/views/' + Home),
+        hidden: false,
+        meta: {
+          title: '首页1',
+          icon: 'md-home',
+          toPath: '/front/home/index',
+          noCache: true,
+          breadcrumb: false,
+          affix: true
+        }
       }
     ]
   }

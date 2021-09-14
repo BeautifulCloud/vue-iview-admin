@@ -4,7 +4,7 @@
  * @Description:sideBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-13 11:19:28
+ * @LastEditTime: 2021-09-14 14:25:47
  */
 import router from '@/router/index'
 import FrontRoutes from '@/router/modules/front'
@@ -16,14 +16,15 @@ import BackRoutes from '@/router/modules/back'
  * @param {}
  * @return {}
  */
-function inRoleViews(roleViews, route) {
-  if (!route.meta || roleViews.includes(route.meta.name)) return true
-  else return false
+function inRoleViews(roleViewNames, route) {
+  if (route.meta && route.name) {
+    return roleViewNames.some(() => roleViewNames.includes(route.name))
+  } else return true
 }
 
 /**
  * @func filterRoutes
- * @desc 通过递归过滤前/后台路由表获得选中的路由
+ * @desc 通过递归过滤前000/后台路由表获得选中的路由
  * @param routes
  * @param roleViews
  * @return {}
@@ -33,7 +34,7 @@ function filterRoutes(routes, roleViews) {
   routes.forEach((route) => {
     const temp = { ...route }
     if (!temp.hidden && inRoleViews(roleViews, route)) {
-      if (temp.children && temp.children.length > 1) {
+      if (temp.children) {
         temp.children = filterRoutes(temp.children, roleViews)
       }
       filteredRts.push(temp)
@@ -46,71 +47,6 @@ const state = {
   sidebarCollapsed: false,
   menuActiveName: 'home',
   dropdownActiveName: 'home',
-  menuList: [
-    {
-      name: '首页',
-      itemName: 'home',
-      path: '/',
-      icon: 'md-home',
-      children: []
-    },
-    {
-      name: '内容管理',
-      itemName: 'nrgl',
-      path: '/1',
-      icon: 'md-headset',
-      children: [
-        { name: '文章管理', itemName: 'wzgl', path: '/2', icon: '', children: [] },
-        { name: '评论管理', itemName: 'plgl', path: '/3', icon: '', children: [] },
-        { name: '举报管理', itemName: 'jbgl', path: '/4', icon: '', children: [] }
-      ]
-    },
-    {
-      name: '用户管理',
-      itemName: 'yhgl',
-      path: '/5',
-      icon: 'md-contacts',
-      children: [
-        { name: '新增用户', itemName: 'xzyh', path: '/6', icon: '', children: [] },
-        { name: '活跃用户', itemName: 'hyyh', path: '/7', icon: '', children: [] }
-      ]
-    },
-    {
-      name: '统计分析',
-      itemName: 'tjfx',
-      path: '/11',
-      icon: 'ios-analytics',
-      children: [
-        { name: '新增和启动', itemName: 'xzqd', path: '/8', icon: '', children: [] },
-        { name: '活跃分析', itemName: 'hyfx', path: '/9', icon: '', children: [] },
-        { name: '时段分析', itemName: 'sdfx', path: '/10', icon: '', children: [] },
-        {
-          name: '留存',
-          itemName: 'lcxx',
-          path: '/test',
-          icon: '',
-          children: [
-            { name: '用户留存', itemName: 'yhlc', path: '/13', icon: '', children: [] },
-            { name: '流失用户', itemName: 'lsyh', path: '/14', icon: '', children: [] }
-          ]
-        }
-      ]
-    },
-    {
-      name: '测试测试',
-      itemName: 'cscs',
-      path: '/test',
-      icon: 'ios-paper',
-      children: []
-    },
-    {
-      name: '啊啊啊啊',
-      itemName: 'aaaa',
-      path: '/about',
-      icon: 'logo-android',
-      children: []
-    }
-  ],
   frontMenuList: [],
   backMenuList: []
 }
@@ -149,14 +85,20 @@ const actions = {
     if (type === 'front') {
       return new Promise((resolve) => {
         const frontRoute = filterRoutes(FrontRoutes, names)
-        commit('GENERATE_FRONT_ROUTES', frontRoute)
+        commit(
+          'GENERATE_FRONT_ROUTES',
+          frontRoute.filter((route) => route.children.length > 0)
+        )
         resolve()
       })
     }
     if (type === 'back') {
       return new Promise((resolve) => {
         const backRoute = filterRoutes(BackRoutes, names)
-        commit('GENERATE_BACK_ROUTES', backRoute)
+        commit(
+          'GENERATE_BACK_ROUTES',
+          backRoute.filter((route) => route.children.length > 0)
+        )
         resolve()
       })
     }

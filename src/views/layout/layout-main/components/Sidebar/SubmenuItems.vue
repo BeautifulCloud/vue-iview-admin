@@ -4,7 +4,7 @@
  * @Description: sidebar展开
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-10 14:34:55
+ * @LastEditTime: 2021-09-14 10:23:51
 -->
 <template>
   <div class="sidebar-submenu-block">
@@ -24,8 +24,8 @@
         </template>
         <template v-else>
           <Submenu
-            :key="itemsData.name"
-            :name="itemsData.name"
+            :key="itemsData.meta.name"
+            :name="itemsData.meta.name"
             class="animate__animated animate__bounce"
           >
             <template slot="title">
@@ -35,9 +35,9 @@
             <MenuItem
               v-for="(childItem,index) in itemsData.children"
               :key="childItem.name"
-              :name="itemsData.name+'-'+index"
+              :name="itemsData.meta.name+'-'+index"
               :to="childItem.meta.toPath"
-              @click.native="dropdownItemClick(itemsData.name,itemsData.name+'-'+index)"
+              @click.native="dropdownItemClick(itemsData.meta.name,itemsData.meta.name+'-'+index)"
             >{{ childItem.meta.title }}</MenuItem>
           </Submenu>
         </template>
@@ -69,8 +69,10 @@ export default {
   methods: {
     ...mapActions(['changeActiveName']),
     hasOneChild(children = []) {
-      if (children.length > 1) return false
-      else return true
+      if (children) {
+        if (children.length > 1) return false
+        else return true
+      }
     },
     dropdownItemClick(menuItemName = 'home', dropdownItemName = '') {
       this.changeActiveName({ menuItemName, dropdownItemName })
