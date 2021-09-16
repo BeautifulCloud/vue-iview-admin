@@ -4,7 +4,7 @@
  * @Description: 登陆页面
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 17:39:57
+ * @LastEditTime: 2021-09-16 15:49:35
 -->
 <template>
   <div class="i-login">
@@ -42,15 +42,16 @@ export default {
     this.$utils.selectLStorage('autoOptions') ? (this.autoOptions = this.$utils.getLStorage('autoOptions')) : this.$utils.setLStorage('autoOptions', [])
   },
   methods: {
-    ...mapActions(['generateRoutes', 'setFrontNames', 'setBackNames', 'setChildViewSettings']),
+    ...mapActions(['setToken', 'generateRoutes', 'setFrontNames', 'setBackNames', 'setChildViewSettings']),
     login(data) {
       const { account, password } = data
       if (account === 'admin' && password === '2580') {
         if (!this.autoOptions.indexOf(account)) this.autoOptions.push(account)
-        this.$utils.setLStorage('token', this.$store.user.token)
+        this.setToken('admin2580')
+        this.$utils.setLStorage('token', 'admin2580')
         this.$utils.setLStorage('autoOptions', this.autoOptions)
         // TODO 下面代码要加到登陆和切换角色处
-        const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2']
+        const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2', 'Table']
         const backNames = []
         const childViewSettings = [
           { pagename: 'Home', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false },

@@ -4,79 +4,132 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-10 12:01:20
+ * @LastEditTime: 2021-09-15 14:46:58
 -->
 <template>
   <div class="i-settings">
-    <div class="i-settings-section">
-      <h3 class="i-settings-title">主题选择</h3>
-      <div class="i-settings-item">
-        <RadioGroup v-model="themeName">
-          <Radio v-for="themeItem in themes" :key="themeItem.url" :label="themeItem.url">
-            <div class="i-settings-themeItem">
-              <img :src="themeItem.imgPath" :alt="themeItem.name" class="i-settings-img" />
-              <p>{{ themeItem.name }}</p>
-            </div>
-          </Radio>
-        </RadioGroup>
-      </div>
-    </div>
-    <Divider />
-    <div class="i-setting-section">
-      <h3 class="i-settings-title">侧边栏设置</h3>
-      <div class="i-settings-item">
-        <span>开启侧边栏</span>
-        <Switch v-model="useSidebar" class="i-settings-switch" />
-      </div>
-      <div class="i-settings-item">
-        <span>固定侧栏</span>
-        <Switch v-model="fixedSidebar" class="i-settings-switch" :disabled="!useSidebar" />
-      </div>
-      <div class="i-settings-item">
-        <span>使用暗色背景</span>
-        <Switch v-model="themeSidebar" class="i-settings-switch" :disabled="!useSidebar" />
-      </div>
-      <div class="i-settings-item">
-        <span>折叠后显示父级菜单名</span>
-        <Switch v-model="showSidebarTitle" class="i-settings-switch" :disabled="!useSidebar" />
-      </div>
-      <div class="i-settings-item">
-        <span>开启手风琴模式</span>
-        <Switch v-model="sidebarAccordion" class="i-settings-switch" :disabled="!useSidebar" />
-      </div>
-    </div>
-    <Divider />
-    <div class="i-setting-section">
-      <h3 class="i-settings-title">顶栏设置</h3>
-      <div class="i-settings-item">
-        <span>固定顶栏</span>
-        <Switch v-model="fixedHeader" class="i-settings-switch" />
-      </div>
-      <div class="i-settings-item">
-        <span>显示重载页面按钮</span>
-        <Switch v-model="showRefreshIcon" class="i-settings-switch" />
-      </div>
-      <div class="i-settings-item">
-        <span>显示折叠按钮</span>
-        <Switch v-model="showFoldIcon" class="i-settings-switch" :disabled="!useSidebar" />
-      </div>
-    </div>
-    <Divider />
-    <div class="i-setting-section">
-      <h3 class="i-settings-title">其他设置</h3>
-      <div class="i-settings-item">
-        <span>开启多页签</span>
-        <Switch v-model="showTagsView" class="i-settings-switch" />
-      </div>
-      <div class="i-settings-item">
-        <span>页签滚动速度</span>
-        <Slider v-model="tagsViewSpeed" show-stops :step="10" :marks="marks" />
-      </div>
-      <div class="i-settings-item">
-        <span>显示设置功能</span>
-        <Switch v-model="showSetting" class="i-settings-switch" />
-      </div>
-    </div>
+    <Collapse simple accordion>
+      <Panel name="themes">
+        主题选择
+        <template #content>
+          <div class="i-settings-item">
+            <RadioGroup v-model="themeName">
+              <Radio v-for="themeItem in themes" :key="themeItem.url" :label="themeItem.url">
+                <div class="i-settings-themeItem">
+                  <img :src="themeItem.imgPath" :alt="themeItem.name" class="i-settings-img" />
+                  <p>{{ themeItem.name }}</p>
+                </div>
+              </Radio>
+            </RadioGroup>
+          </div>
+        </template>
+      </Panel>
+      <Panel name="sidebar">
+        侧边栏设置
+        <template #content>
+          <div class="i-settings-item">
+            <span>开启侧边栏</span>
+            <Switch v-model="useSidebar" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>固定侧栏</span>
+            <Switch v-model="fixedSidebar" class="i-settings-switch" :disabled="!useSidebar" />
+          </div>
+          <div class="i-settings-item">
+            <span>使用暗色背景</span>
+            <Switch v-model="themeSidebar" class="i-settings-switch" :disabled="!useSidebar" />
+          </div>
+          <div class="i-settings-item">
+            <span>折叠后显示父级菜单名</span>
+            <Switch v-model="showSidebarTitle" class="i-settings-switch" :disabled="!useSidebar" />
+          </div>
+          <div class="i-settings-item">
+            <span>开启手风琴模式</span>
+            <Switch v-model="sidebarAccordion" class="i-settings-switch" :disabled="!useSidebar" />
+          </div>
+        </template>
+      </Panel>
+      <Panel name="topbar">
+        顶栏设置
+        <template #content>
+          <div class="i-settings-item">
+            <span>固定顶栏</span>
+            <Switch v-model="fixedHeader" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示重载页面按钮</span>
+            <Switch v-model="showRefreshIcon" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示折叠按钮</span>
+            <Switch v-model="showFoldIcon" class="i-settings-switch" :disabled="!useSidebar" />
+          </div>
+        </template>
+      </Panel>
+      <Panel name="tagsView">
+        页签设置
+        <template #content>
+          <div class="i-settings-item">
+            <span>开启多页签</span>
+            <Switch v-model="showTagsView" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>页签滚动速度</span>
+            <Slider v-model="tagsViewSpeed" show-stops :step="10" :marks="marks" />
+          </div>
+        </template>
+      </Panel>
+      <Panel name="tableComponent">
+        表格设置
+        <template #content>
+          <div class="i-settings-item">
+            <span>显示边框</span>
+            <Switch v-model="showTableBorder" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示斑马纹</span>
+            <Switch v-model="showTableStripe" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示表头</span>
+            <Switch v-model="showTableHeader" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示原始数据导出按钮</span>
+            <Switch v-model="showTableExport" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示排序数据导出按钮</span>
+            <Switch v-model="showTableSortExport" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示自定义数据导出按钮</span>
+            <Switch v-model="showTableCustomExport" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>显示列设置</span>
+            <Switch v-model="showTableColumns" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>表格尺寸</span>
+            <Radio-group v-model="tableSize" type="button" class="i-settings-radiogroup">
+              <Radio label="large">大</Radio>
+              <Radio label="default">中</Radio>
+              <Radio label="small">小</Radio>
+            </Radio-group>
+          </div>
+        </template>
+      </Panel>
+      <Panel name="other">
+        其他设置
+        <template #content>
+          <div class="i-settings-item">
+            <span>显示设置功能</span>
+            <Switch v-model="showSetting" class="i-settings-switch" />
+          </div>
+        </template>
+      </Panel>
+    </Collapse>
   </div>
 </template>
 
@@ -231,6 +284,70 @@ export default {
       set(val) {
         this.changeSettings({ key: 'fixedSidebar', value: val })
       }
+    },
+    showTableBorder: {
+      get() {
+        return this.$store.state.settings.showTableBorder
+      },
+      set(val) {
+        this.changeSettings({ key: 'showTableBorder', value: val })
+      }
+    },
+    showTableStripe: {
+      get() {
+        return this.$store.state.settings.showTableStripe
+      },
+      set(val) {
+        this.changeSettings({ key: 'showTableStripe', value: val })
+      }
+    },
+    showTableHeader: {
+      get() {
+        return this.$store.state.settings.showTableHeader
+      },
+      set(val) {
+        this.changeSettings({ key: 'showTableHeader', value: val })
+      }
+    },
+    showTableExport: {
+      get() {
+        return this.$store.state.settings.showTableExport
+      },
+      set(val) {
+        this.changeSettings({ key: 'showTableExport', value: val })
+      }
+    },
+    showTableSortExport: {
+      get() {
+        return this.$store.state.settings.showTableSortExport
+      },
+      set(val) {
+        this.changeSettings({ key: 'showTableSortExport', value: val })
+      }
+    },
+    showTableCustomExport: {
+      get() {
+        return this.$store.state.settings.showTableCustomExport
+      },
+      set(val) {
+        this.changeSettings({ key: 'showTableCustomExport', value: val })
+      }
+    },
+    showTableColumns: {
+      get() {
+        return this.$store.state.settings.showTableColumns
+      },
+      set(val) {
+        this.changeSettings({ key: 'showTableColumns', value: val })
+      }
+    },
+    tableSize: {
+      get() {
+        return this.$store.state.settings.tableSize
+      },
+      set(val) {
+        this.changeSettings({ key: 'tableSize', value: val })
+      }
     }
   },
   methods: {
@@ -245,15 +362,6 @@ export default {
   font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
-  &-section {
-    padding: 12px 0;
-  }
-  &-title {
-    margin-bottom: 12px;
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 14px;
-    line-height: 22px;
-  }
   &-item {
     color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
@@ -265,11 +373,22 @@ export default {
   &-img {
     width: 200px;
   }
-  &-switch {
+  &-switch,
+  &-radiogroup {
     float: right;
   }
-  &-switch {
-    float: right;
+}
+</style>
+<style lang="less">
+.i-settings {
+  .ivu-collapse {
+    .ivu-collapse-item {
+      .ivu-collapse-header,
+      .ivu-collapse-content {
+        padding-left: 0;
+        padding: 0;
+      }
+    }
   }
 }
 </style>

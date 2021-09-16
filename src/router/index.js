@@ -4,12 +4,13 @@
  * @Description:  路由index.js
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 17:14:34
+ * @LastEditTime: 2021-09-16 15:57:23
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 import NProgress from 'nprogress'
+import Utils from '@/utils/util'
 
 Vue.use(VueRouter)
 
@@ -38,7 +39,7 @@ const createRouter = () => new VueRouter({ routes })
 const router = createRouter()
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-  if (store.state.user.token && to.path !== '/') {
+  if (Utils.getLStorage('token') && to.path !== '/') {
     const frontMenu = store.state.sidebar.frontMenuList
     const backMenu = store.state.sidebar.backMenuList
     if (to.path === '/login') {

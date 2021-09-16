@@ -4,13 +4,13 @@
  * @Description: 用户信息
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 18:03:38
+ * @LastEditTime: 2021-09-16 15:46:39
  */
 import { resetRouter } from '@/router/index'
 
 const state = {
   role: 'admin',
-  token: 'admin2580', // 退出登录,登录超时都需要清理localStorage里存储的token,防止重定向路由导致的死循环
+  token: '', // 退出登录,登录超时都需要清理localStorage里存储的token,防止重定向路由导致的死循环
   frontViewNames: [],
   backViewNames: [],
   childViewSettings: []
@@ -18,6 +18,9 @@ const state = {
 const mutations = {
   SET_ROLE(state, role) {
     state.role = role
+  },
+  SET_TOKEN(state, token) {
+    state.token = token
   },
   SET_FRONT_VIEW_NAMES(state, names) {
     state.frontViewNames = names
@@ -34,6 +37,9 @@ const actions = {
     resetRouter()
     commit('SET_ROLE', role)
   },
+  setToken({ commit }, token) {
+    commit('SET_TOKEN', token)
+  },
   getUserViews({ commit, state }) {
     // TODO:调用接口 获取用户token未到期时可查看页面的权限
     // getInfo(state.token).then((res) => {
@@ -41,7 +47,7 @@ const actions = {
     //   commit('SET_BACK_VIEW_NAMES', res.backNames)
     // })
     return new Promise((resolve) => {
-      const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2']
+      const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2', 'Table']
       const backNames = []
       commit('SET_FRONT_VIEW_NAMES', frontNames)
       commit('SET_BACK_VIEW_NAMES', backNames)

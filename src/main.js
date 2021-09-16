@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 16:53:08
+ * @LastEditTime: 2021-09-16 16:22:04
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -115,7 +115,7 @@ new Vue({
     }
     if (Utils.selectLStorage('token')) {
       const token = Utils.getLStorage('token')
-      this.$store.commit('COMMIT_USER_DATA', { key: 'token', value: token })
+      this.$store.commit('SET_TOKEN', token)
     }
     window.addEventListener('beforeunload', () => {
       Utils.setLStorage('settings', this.$store.state.settings)

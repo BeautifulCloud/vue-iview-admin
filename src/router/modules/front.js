@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 09:26:47
+ * @LastEditTime: 2021-09-15 16:29:39
  */
 import Layout from '@/views/layout/layout-main/index'
 const Home = 'Home.vue'
@@ -32,6 +32,33 @@ const frontRoutes = [
           breadcrumb: false,
           affix: true
         }
+      }
+    ]
+  },
+  {
+    path: '/components',
+    component: Layout,
+    redirect: '/components/table',
+    hidden: false,
+    alwaysShow: true,
+    meta: {
+      title: '组件查看',
+      icon: 'md-headset',
+      name: 'Components'
+    },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/component-use/table.vue'),
+        meta: {
+          title: '表格',
+          toPath: '/components/table',
+          noCache: false,
+          breadcrumb: false,
+          affix: true
+        },
+        hidden: false
       }
     ]
   },
