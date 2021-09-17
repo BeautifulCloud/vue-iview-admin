@@ -4,11 +4,11 @@
  * @Description: table组件
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-16 17:32:14
+ * @LastEditTime: 2021-09-17 10:48:34
 -->
 <template>
   <div class="l-table">
-    <Checkbox-group v-model="tableSelectColumns" @on-change="resetTableColumns">
+    <Checkbox-group v-model="tableSelectColumns">
       <Checkbox label="show">Show</Checkbox>
       <Checkbox label="weak">Weak</Checkbox>
       <Checkbox label="signin">Signin</Checkbox>
@@ -21,7 +21,14 @@
       <Checkbox label="week">Week Active</Checkbox>
       <Checkbox label="month">Month Active</Checkbox>
     </Checkbox-group>
-    <Table :data="tableData" :columns="tableSelectColumns" border />
+    <Table
+      :data="tableData"
+      :columns="actualTableColumns"
+      :border="$store.state.settings.showTableBorder"
+      :stripe="$store.state.settings.showTableStripe"
+      :show-header="$store.state.settings.showTableHeader"
+      :size="$store.state.settings.showTableSize"
+    />
   </div>
 </template>
 
@@ -34,6 +41,12 @@ export default {
       type: String,
       default() {
         return ''
+      }
+    },
+    tableColumnsRule: {
+      type: Object,
+      default() {
+        return {}
       }
     },
     tableColumns: {
@@ -55,6 +68,7 @@ export default {
   computed: {
     ...mapGetters(['getTableSelectColumns']),
     tableSelectColumns: {
+      // 改变和存储用户设置要展示的列
       get() {
         const selectColumns = this.getTableSelectColumns(this.pageName)
         if (typeof selectColumns !== 'undefined') {
@@ -65,129 +79,30 @@ export default {
         }
       },
       set(val) {
-        this.changeTableColumns({ key: this.pageName, arr: val })
+        if (this.$store.state.settings.fixTableColumns) {
+          const fixColumns = []
+          this.tableColumns.forEach((col) => {
+            val.forEach((newCol) => {
+              if (newCol === col) fixColumns.push(newCol)
+            })
+          })
+          this.changeTableColumns({ key: this.pageName, arr: fixColumns })
+        } else this.changeTableColumns({ key: this.pageName, arr: val })
       }
+    },
+    actualTableColumns() {
+      // 通过tableColumnsRule 和 tableSelectColumns 生成要展示的列
+      const data = []
+      if (Object.prototype.hasOwnProperty.call(this.tableColumnsRule, 'index')) data.push(this.tableColumnsRule.index)
+      if (Object.prototype.hasOwnProperty.call(this.tableColumnsRule, 'selection')) data.push(this.tableColumnsRule.selection)
+      this.tableSelectColumns.forEach((col) => {
+        data.push(this.tableColumnsRule[col])
+      })
+      return data
     }
-  },
-  mounted() {
-    this.resetTableColumns()
   },
   methods: {
-    ...mapActions(['changeTableColumns']),
-    /**
-     * @func generateTableColumns
-     * @desc 通过colItems生成要展示的列
-     * @param colItems Table要展示的列名数组
-     * @return data 返回生成后的列
-     */
-    generateTableColumns(colItems) {},
-
-    getTable2Columns() {
-      const table2ColumnList = {
-        name: {
-          title: 'Name',
-          key: 'name',
-          fixed: 'left',
-          width: 200,
-          render: (h, params) => {
-            const fav = this.tableData2[params.index].fav
-            const style = fav === 0 ? { cursor: 'pointer' } : { cursor: 'pointer', color: '#f50' }
-            return h('div', [
-              h('Icon', {
-                style: style,
-                props: {
-                  type: fav === 0 ? 'ios-star-outline' : 'ios-star'
-                },
-                nativeOn: {
-                  click: () => {
-                    this.toggleFav(params.index)
-                  }
-                }
-              }),
-              h('span', ' ' + params.row.name)
-            ])
-          }
-        },
-        show: {
-          title: 'Show',
-          key: 'show',
-          width: 150,
-          sortable: true
-        },
-        weak: {
-          title: 'Weak',
-          key: 'weak',
-          width: 150,
-          sortable: true
-        },
-        signin: {
-          title: 'Signin',
-          key: 'signin',
-          width: 150,
-          sortable: true
-        },
-        click: {
-          title: 'Click',
-          key: 'click',
-          width: 150,
-          sortable: true
-        },
-        active: {
-          title: 'Active',
-          key: 'active',
-          width: 150,
-          sortable: true
-        },
-        day7: {
-          title: '7, retained',
-          key: 'day7',
-          width: 150,
-          sortable: true
-        },
-        day30: {
-          title: '30, retained',
-          key: 'day30',
-          width: 150,
-          sortable: true
-        },
-        tomorrow: {
-          title: 'The next day left',
-          key: 'tomorrow',
-          width: 150,
-          sortable: true
-        },
-        day: {
-          title: 'Day Active',
-          key: 'day',
-          width: 150,
-          sortable: true
-        },
-        week: {
-          title: 'Week Active',
-          key: 'week',
-          width: 150,
-          sortable: true
-        },
-        month: {
-          title: 'Month Active',
-          key: 'month',
-          width: 150,
-          sortable: true
-        }
-      }
-
-      const data = [table2ColumnList.name]
-
-      this.tableColumns.forEach((col) => data.push(table2ColumnList[col]))
-
-      return data
-    },
-    resetTableColumns() {
-      this.tableColumns2 = this.getTable2Columns()
-    },
-    toggleFav(index) {
-      this.tableData2[index].fav = this.tableData2[index].fav === 0 ? 1 : 0
-    }
+    ...mapActions(['changeTableColumns'])
   }
 }
 </script>

@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-16 16:22:04
+ * @LastEditTime: 2021-09-17 09:18:02
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -27,10 +27,8 @@ import 'animate.css'
 import 'nprogress/nprogress.css'
 import 'font-awesome/less/font-awesome.less'
 import '@/assets/styles/styles.less'
-
 // 自定义修改主题方法
 // import changeThemeColor from './utils/theme'
-
 Vue.prototype.$axios = Axios
 Vue.prototype.$utils = Utils
 Vue.prototype.$request = Request
@@ -101,12 +99,6 @@ new Vue({
   router,
   store,
   created() {
-    // 在页面加载时读取sessionStorage里的状态信息
-    // if (Utils.selectSStorage('store')) {
-    //   const oldState = Utils.getSStorage('store')
-    //   this.$store.replaceState(Object.assign({}, this.$store.state, oldState))
-    //   Utils.deleteSStorage('store')
-    // }
     if (Utils.selectLStorage('settings')) {
       const settingsState = Utils.getLStorage('settings')
       Object.keys(settingsState).forEach((key) => {

@@ -4,7 +4,7 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-15 14:46:58
+ * @LastEditTime: 2021-09-17 09:50:33
 -->
 <template>
   <div class="i-settings">
@@ -109,6 +109,10 @@
           <div class="i-settings-item">
             <span>显示列设置</span>
             <Switch v-model="showTableColumns" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
+            <span>固定列顺序</span>
+            <Switch v-model="fixTableColumns" class="i-settings-switch" />
           </div>
           <div class="i-settings-item">
             <span>表格尺寸</span>
@@ -339,6 +343,14 @@ export default {
       },
       set(val) {
         this.changeSettings({ key: 'showTableColumns', value: val })
+      }
+    },
+    fixTableColumns: {
+      get() {
+        return this.$store.state.settings.fixTableColumns
+      },
+      set(val) {
+        this.changeSettings({ key: 'fixTableColumns', value: val })
       }
     },
     tableSize: {
