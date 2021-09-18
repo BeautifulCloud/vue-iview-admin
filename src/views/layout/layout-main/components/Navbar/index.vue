@@ -4,7 +4,7 @@
  * @Description: NavBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-03 15:59:10
+ * @LastEditTime: 2021-09-18 13:48:59
 -->
 <template>
   <div class="i-navbar">
@@ -24,6 +24,7 @@
     >
       <i class="fa fa-refresh" :class="{'fa-spin':refreshSpin}" aria-hidden="true"></i>
     </span>
+    <span class="i-navbar-icon i-hover">{{ mainTitle }}</span>
     <div class="i-navbar-right">
       <span v-if="!$store.state.settings.useSidebar" class="i-navbar-icon i-hover">
         <Poptip placement="bottom" width="400" :word-wrap="true" trigger="hover">
@@ -73,6 +74,11 @@ export default {
   data() {
     return {
       refreshSpin: false
+    }
+  },
+  computed: {
+    mainTitle() {
+      return this.$route.meta.title
     }
   },
   methods: {

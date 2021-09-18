@@ -4,21 +4,23 @@
  * @Description: table 组件示例
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-17 10:10:30
+ * @LastEditTime: 2021-09-18 16:30:55
 -->
 <template>
-  <div>
+  <div class="l-view l-components-table">
     <l-table
+      ref="LTable"
       :page-name="$options.name"
       :table-columns="tableColumns"
       :table-data="tableData"
       :table-columns-rule="tableColumnsRule"
+      @refresh-table="refreshTable"
     />
   </div>
 </template>
 
 <script>
-import LTable from '@/components/base/table/index.vue'
+import LTable from '@/components/base/LTable/index.vue'
 export default {
   name: 'TableUse',
   components: { LTable },
@@ -113,7 +115,8 @@ export default {
           title: 'Day Active',
           key: 'day',
           width: 150,
-          sortable: true
+          sortable: true,
+          fixed: 'right'
         },
         week: {
           title: 'Week Active',
@@ -127,7 +130,8 @@ export default {
           width: 150,
           sortable: true
         }
-      }
+      },
+      forNum: 12
     }
   },
   computed: {
@@ -136,7 +140,7 @@ export default {
       function getNum() {
         return Math.floor(Math.random() * 10000 + 1)
       }
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < this.forNum; i++) {
         data.push({
           name: 'Name ' + (i + 1),
           fav: 0,
@@ -157,9 +161,18 @@ export default {
     }
   },
   create() {},
-  methods: {}
+  methods: {
+    refreshTable() {
+      setTimeout(() => {
+        this.forNum++
+        this.$refs.LTable.lodingEnd()
+      }, 1500)
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
+.l-components-table {
+}
 </style>

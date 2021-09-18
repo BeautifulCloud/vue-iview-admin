@@ -4,7 +4,7 @@
  * @Description:设置缓存信息
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-17 09:50:26
+ * @LastEditTime: 2021-09-17 17:55:03
  */
 import { CHANGE_SETTINGS } from '../mutation-types'
 const state = {
@@ -26,15 +26,14 @@ const state = {
   showTableExport: true,
   showTableSortExport: true,
   showTableCustomExport: true,
-  showTableColumns: true,
+  showTableOperation: true,
   tableColumnsSettings: {},
   fixTableColumns: true,
   tableSize: 'default'
 }
 const mutations = {
   [CHANGE_SETTINGS]: (state, { key, value }) => {
-    // eslint-disable-next-line
-    if (state.hasOwnProperty(key)) state[key] = value
+    if (Object.prototype.hasOwnProperty.call(state, key)) state[key] = value
   },
   CHANGE_TABLE_COLUMNS: (state, { key, arr }) => {
     state.tableColumnsSettings[key] = arr

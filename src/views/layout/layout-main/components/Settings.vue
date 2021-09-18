@@ -4,7 +4,7 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-17 09:50:33
+ * @LastEditTime: 2021-09-17 17:55:01
 -->
 <template>
   <div class="i-settings">
@@ -107,8 +107,8 @@
             <Switch v-model="showTableCustomExport" class="i-settings-switch" />
           </div>
           <div class="i-settings-item">
-            <span>显示列设置</span>
-            <Switch v-model="showTableColumns" class="i-settings-switch" />
+            <span>显示操作项</span>
+            <Switch v-model="showTableOperation" class="i-settings-switch" />
           </div>
           <div class="i-settings-item">
             <span>固定列顺序</span>
@@ -337,12 +337,12 @@ export default {
         this.changeSettings({ key: 'showTableCustomExport', value: val })
       }
     },
-    showTableColumns: {
+    showTableOperation: {
       get() {
-        return this.$store.state.settings.showTableColumns
+        return this.$store.state.settings.showTableOperation
       },
       set(val) {
-        this.changeSettings({ key: 'showTableColumns', value: val })
+        this.changeSettings({ key: 'showTableOperation', value: val })
       }
     },
     fixTableColumns: {

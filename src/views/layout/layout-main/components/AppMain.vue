@@ -4,11 +4,10 @@
  * @Description: AppMain 组件
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-15 08:48:24
+ * @LastEditTime: 2021-09-18 14:11:54
 -->
 <template>
   <section class="app-main">
-    <h1>{{ mainTitle }}</h1>
     <transition
       name="animate"
       mode="out-in"
@@ -32,11 +31,6 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    mainTitle() {
-      return this.$route.meta.title
-    }
-  },
   methods: {
     cachedViews() {
       return this.$store.state.tagsView.cachedViews
@@ -51,11 +45,17 @@ export default {
 <style lang="less" scoped>
 .app-main {
   min-height: 100%;
-  width: 100%;
   padding: 12px 6px;
   background-color: white;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  & > .l-view {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+  }
 }
 .fixed-header + .app-main {
   padding-top: 64px;

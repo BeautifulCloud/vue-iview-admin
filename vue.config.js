@@ -4,15 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-08-29 00:43:57
- */
-/***
- * @Autor: 刘轩亨
- * @Date: 2021-08-19 16:43:10
- * @Description:
- * @Version: 1.0
- * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-08-24 14:56:44
+ * @LastEditTime: 2021-09-18 15:11:45
  */
 const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -78,7 +70,7 @@ module.exports = {
             compress: {
               drop_console: true,
               drop_debugger: false,
-              pure_funcs: ['console.log'] //移除console
+              pure_funcs: ['console.log'] // 移除console
             }
           }
         })
