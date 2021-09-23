@@ -4,7 +4,7 @@
  * @Description: table组件 这个组件父级必须是display:flex
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-18 17:29:12
+ * @LastEditTime: 2021-09-23 14:07:25
 -->
 <template>
   <div class="l-table">
@@ -90,8 +90,15 @@ export default {
       return data
     }
   },
+  watch: {
+    '$store.state.settings.showTagsView'() {
+      this.tableHeight = 1
+    },
+    '$store.state.settings.showTableOperation'() {
+      this.tableHeight = 1
+    }
+  },
   updated() {
-    console.log(this.$refs.tableMain.offsetHeight)
     this.tableHeight = this.$refs.tableMain.offsetHeight
   },
   methods: {
@@ -112,11 +119,11 @@ export default {
 
 <style lang="less" scoped>
 .l-table {
-  flex: 1;
+  flex: auto;
   display: flex;
   flex-direction: column;
   &-main {
-    flex: auto;
+    flex: 1;
   }
 }
 </style>

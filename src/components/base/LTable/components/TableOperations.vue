@@ -4,7 +4,7 @@
  * @Description: TableOperation
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-18 13:39:40
+ * @LastEditTime: 2021-09-23 13:22:20
 -->
 <template>
   <div v-if="$store.state.settings.showTableOperation" class="l-table-operation">
@@ -109,6 +109,7 @@ export default {
 <style lang="less" scoped>
 @l-table: l-table;
 .@{l-table}-operation {
+  flex: 0 0 auto;
   text-align: right;
   .@{l-table}-dropdown {
     text-align: left;
