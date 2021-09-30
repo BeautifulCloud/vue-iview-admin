@@ -4,7 +4,7 @@
  * @Description: NavBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-18 13:48:59
+ * @LastEditTime: 2021-09-30 10:05:12
 -->
 <template>
   <div class="i-navbar">
@@ -49,11 +49,11 @@
         </Dropdown>
       </span>
       <span class="i-navbar-icon i-hover">
-        <Dropdown>
+        <Dropdown @on-click="navbarOptions">
           <Icon type="md-options" />
           <DropdownMenu slot="list">
-            <DropdownItem>后台管理</DropdownItem>
-            <DropdownItem>退出</DropdownItem>
+            <DropdownItem name="backManager">后台管理</DropdownItem>
+            <DropdownItem name="signOut">退出</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </span>
@@ -93,6 +93,13 @@ export default {
       setTimeout(() => {
         _this.refreshSpin = false
       }, 1000)
+    },
+    navbarOptions(name) {
+      if (name === 'backManager') console.log('goback')
+      if (name === 'signOut') {
+        this.$utils.deleteLStorage('token')
+        this.$router.push({ name: 'Login' })
+      }
     }
   }
 }

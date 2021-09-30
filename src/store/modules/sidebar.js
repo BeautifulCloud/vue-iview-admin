@@ -4,7 +4,7 @@
  * @Description:sideBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 14:25:47
+ * @LastEditTime: 2021-09-30 16:21:04
  */
 import router from '@/router/index'
 import FrontRoutes from '@/router/modules/front'
@@ -12,7 +12,7 @@ import BackRoutes from '@/router/modules/back'
 
 /**
  * @func
- * @desc s使用roleViews来确定是否有权限展示页面
+ * @desc 使用roleViews来确定是否有权限展示页面
  * @param {}
  * @return {}
  */
@@ -80,7 +80,7 @@ const actions = {
     commit('CHANGE_MENU_ACTIVE_NAME', menuItemName)
     commit('CHANGE_DROPDOWN_ACTIVE_NAME', dropdownItemName)
   },
-  generateRoutes({ commit }, data) {
+  generateRoutes({ state, commit }, data) {
     const { type, names } = data
     if (type === 'front') {
       return new Promise((resolve) => {

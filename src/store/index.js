@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-06 15:45:55
+ * @LastEditTime: 2021-09-30 16:43:54
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -25,11 +25,7 @@ export default new Vuex.Store({
     token: '',
     tagsViewList: [{ name: '首页', canClose: false, path: '/home' }]
   },
-  mutations: {
-    addTag(state, data) {
-      state.tagsViewList.push(data)
-    }
-  },
+  mutations: {},
   actions: {},
   modules,
   getters

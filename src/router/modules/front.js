@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-15 16:29:39
+ * @LastEditTime: 2021-09-30 17:04:50
  */
 import Layout from '@/views/layout/layout-main/index'
 const Home = 'Home.vue'
@@ -56,7 +56,20 @@ const frontRoutes = [
           toPath: '/components/table',
           noCache: false,
           breadcrumb: false,
-          affix: true
+          affix: false
+        },
+        hidden: false
+      },
+      {
+        path: 'formSearch',
+        name: 'FormSearch',
+        component: () => import('@/views/component-use/formSearch.vue'),
+        meta: {
+          title: '表单查询',
+          toPath: '/components/formSearch',
+          noCache: false,
+          breadcrumb: false,
+          affix: false
         },
         hidden: false
       }
@@ -80,7 +93,7 @@ const frontRoutes = [
           toPath: '/front/receive/index',
           noCache: false,
           breadcrumb: false,
-          affix: true
+          affix: false
         }
       }
     ]
@@ -106,7 +119,7 @@ const frontRoutes = [
           toPath: '/front/content/test1',
           noCache: false,
           breadcrumb: false,
-          affix: true
+          affix: false
         },
         hidden: false
       },
@@ -119,7 +132,7 @@ const frontRoutes = [
           toPath: '/front/content/test2',
           noCache: false,
           breadcrumb: false,
-          affix: true
+          affix: false
         },
         hidden: false
       },
@@ -132,7 +145,7 @@ const frontRoutes = [
           toPath: '/front/content/test3',
           noCache: false,
           breadcrumb: false,
-          affix: true
+          affix: false
         },
         hidden: false
       }
@@ -156,7 +169,7 @@ const frontRoutes = [
           toPath: '/front/home/index',
           noCache: true,
           breadcrumb: false,
-          affix: true
+          affix: false
         }
       }
     ]

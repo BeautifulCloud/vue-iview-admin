@@ -4,7 +4,7 @@
  * @Description: 用户信息
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-16 15:46:39
+ * @LastEditTime: 2021-09-30 16:32:25
  */
 import { resetRouter } from '@/router/index'
 
@@ -47,7 +47,7 @@ const actions = {
     //   commit('SET_BACK_VIEW_NAMES', res.backNames)
     // })
     return new Promise((resolve) => {
-      const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2', 'Table']
+      const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2', 'Table', 'FormSearch']
       const backNames = []
       commit('SET_FRONT_VIEW_NAMES', frontNames)
       commit('SET_BACK_VIEW_NAMES', backNames)

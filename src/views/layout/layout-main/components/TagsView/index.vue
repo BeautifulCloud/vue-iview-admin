@@ -4,7 +4,7 @@
  * @Description: tags-view 页签功能
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-02 09:10:33
+ * @LastEditTime: 2021-09-30 17:33:14
 -->
 <template>
   <div class="i-tags-view">
@@ -13,13 +13,10 @@
     </span>
     <div ref="viewContent" class="i-tags-view-content">
       <div ref="viewScroll" class="i-tags-view-scroll">
-        <router-link to="/home">
-          <Tag type="border" class="tag-item">首页</Tag>
-        </router-link>
         <router-link
-          v-for="(tagItem,index) in $store.state.tagsViewList"
+          v-for="(tagItem,index) in $store.state.tagsView.visitedViews"
           :key="'tagView'+index"
-          :to="tagItem.path"
+          :to="tagItem.meta?tagItem.meta.toPath:tagItem.path"
         >
           <Tag type="border" class="tag-item">{{ tagItem.name }}</Tag>
         </router-link>
@@ -37,18 +34,29 @@ export default {
   data() {
     return {
       isOverflow: false,
-      translateDistance: 0
+      translateDistance: 0,
+      affixTags: [],
+      dynamicTags: []
+    }
+  },
+  computed: {
+    visitedViews() {
+      this.initScroll()
+
+      return this.$store.state.tagsView.visitedViews
     }
   },
   watch: {
-    '$store.state.tagsViewList'() {
-      this.initScroll()
-    }
+    $route() {}
   },
   mounted() {
-    this.initScroll()
+    // 走sidebar 的frontlist 所有有权限才能查看的view ,把里面所有affix的view挑出来，后续再判断是否是affix，如果是就active中，其他的时候就变化添加进去
   },
   methods: {
+    /**
+     * @func initScroll
+     * @desc 通过判断views长度与容器长度判别是否需要开始滚动翻页模式
+     */
     initScroll() {
       const contentDom = this.$refs.viewContent
       const scrollDom = this.$refs.viewScroll
@@ -64,6 +72,11 @@ export default {
         }
       })
     },
+    /**
+     * @func scrollXFun
+     * @desc 鼠标滚轮控制横向滚动与滚动速度
+     * @param {e(监听滚轮事件的返回),scrollDom(滚动块), contentDom(容器块)}
+     */
     scrollXFun(e, scrollDom, contentDom) {
       const speed = this.$store.state.settings.tagsViewSpeed
       let realSpeed = Number
@@ -75,6 +88,11 @@ export default {
       else this.translateDistance += (e.deltaY / 10) * realSpeed
       scrollDom.style.transform = `translate(${-this.translateDistance}px)`
     },
+    /**
+     * @func scrollMove
+     * @desc tagViews超出容器后可进行点击左右按钮进行views翻页
+     * @param {direction(判断是向左翻页还是向右翻页)}
+     */
     scrollMove(direction) {
       const contentDom = this.$refs.viewContent
       const scrollDom = this.$refs.viewScroll

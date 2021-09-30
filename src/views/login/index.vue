@@ -4,7 +4,7 @@
  * @Description: 登陆页面
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-16 15:49:35
+ * @LastEditTime: 2021-09-30 10:04:44
 -->
 <template>
   <div class="i-login">
@@ -51,7 +51,7 @@ export default {
         this.$utils.setLStorage('token', 'admin2580')
         this.$utils.setLStorage('autoOptions', this.autoOptions)
         // TODO 下面代码要加到登陆和切换角色处
-        const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2', 'Table']
+        const frontNames = ['Home', 'FileReceive', 'Test1', 'Test2', 'Table', 'FormSearch']
         const backNames = []
         const childViewSettings = [
           { pagename: 'Home', pageShow: true, addPower: false, deletePower: false, checkPower: false, editPower: false },

@@ -4,7 +4,7 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-29 14:03:42
+ * @LastEditTime: 2021-09-30 09:20:58
 -->
 <template>
   <div class="i-settings">
@@ -80,7 +80,7 @@
         </template>
       </Panel>
       <Panel name="tableComponent">
-        表格设置
+        表格设置(table)
         <template #content>
           <div class="i-settings-item">
             <span>调整列宽</span>
