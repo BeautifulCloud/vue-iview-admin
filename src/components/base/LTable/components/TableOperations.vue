@@ -4,7 +4,7 @@
  * @Description: TableOperation
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-23 13:22:20
+ * @LastEditTime: 2021-09-30 08:52:30
 -->
 <template>
   <div v-if="$store.state.settings.showTableOperation" class="l-table-operation">
@@ -48,7 +48,7 @@ import screenfull from 'screenfull'
 export default {
   name: 'TableOperations',
   props: {
-    pageName: {
+    vueName: {
       type: String,
       default() {
         return ''
@@ -72,20 +72,26 @@ export default {
     checkboxData: {
       // 改变和存储用户设置要展示的列
       get() {
-        return this.getTableSelectColumns(this.pageName)
+        return this.getTableSelectColumns(this.vueName)
       },
       set(val) {
         if (this.$store.state.settings.fixTableColumns) {
           const fixColumns = []
-          this.tableColumns.forEach((col) => {
+          this.dropdownData.forEach((col) => {
             val.forEach((newCol) => {
               if (newCol === col) fixColumns.push(newCol)
             })
           })
-          this.changeTableColumns({ key: this.pageName, arr: fixColumns })
-        } else this.changeTableColumns({ key: this.pageName, arr: val })
+          this.changeTableColumns({ key: this.vueName, arr: fixColumns })
+        } else this.changeTableColumns({ key: this.vueName, arr: val })
       }
     }
+  },
+  mounted() {
+    screenfull.on('change', (data) => {
+      this.isScreenfull = !this.isScreenfull
+      this.$emit('screenfull-change', data)
+    })
   },
   methods: {
     ...mapActions(['changeTableColumns']),
@@ -97,7 +103,6 @@ export default {
       const element = document.getElementsByClassName('app-main')[0]
       if (this.isScreenfull) screenfull.exit()
       else screenfull.request(element)
-      this.isScreenfull = !this.isScreenfull
     },
     refreshTable() {
       this.$emit('refresh-table')

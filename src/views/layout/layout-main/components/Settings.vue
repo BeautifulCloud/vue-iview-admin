@@ -4,7 +4,7 @@
  * @Description: 设置按钮的内容
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-17 17:55:01
+ * @LastEditTime: 2021-09-29 14:03:42
 -->
 <template>
   <div class="i-settings">
@@ -83,6 +83,10 @@
         表格设置
         <template #content>
           <div class="i-settings-item">
+            <span>调整列宽</span>
+            <Switch v-model="tableResizable" class="i-settings-switch" />
+          </div>
+          <div class="i-settings-item">
             <span>显示边框</span>
             <Switch v-model="showTableBorder" class="i-settings-switch" />
           </div>
@@ -99,12 +103,12 @@
             <Switch v-model="showTableExport" class="i-settings-switch" />
           </div>
           <div class="i-settings-item">
-            <span>显示排序数据导出按钮</span>
+            <span>显示当前页数据导出按钮</span>
             <Switch v-model="showTableSortExport" class="i-settings-switch" />
           </div>
           <div class="i-settings-item">
             <span>显示自定义数据导出按钮</span>
-            <Switch v-model="showTableCustomExport" class="i-settings-switch" />
+            <Switch v-model="showTableCustomExport" class="i-settings-switch" :disabled="true" />
           </div>
           <div class="i-settings-item">
             <span>显示操作项</span>
@@ -116,10 +120,29 @@
           </div>
           <div class="i-settings-item">
             <span>表格尺寸</span>
-            <Radio-group v-model="tableSize" type="button" class="i-settings-radiogroup">
+            <Radio-group
+              v-model="tableSize"
+              type="button"
+              size="small"
+              class="i-settings-radiogroup"
+            >
               <Radio label="large">大</Radio>
               <Radio label="default">中</Radio>
               <Radio label="small">小</Radio>
+            </Radio-group>
+          </div>
+          <div class="i-settings-item">
+            <span>表格操作</span>
+            <Radio-group
+              v-model="tableOperation"
+              type="button"
+              size="small"
+              class="i-settings-radiogroup"
+            >
+              <Radio label="tradition">传统</Radio>
+              <Radio label="button">按</Radio>
+              <Radio label="simple">简</Radio>
+              <!-- <Radio label="regular">齐</Radio> -->
             </Radio-group>
           </div>
         </template>
@@ -289,6 +312,14 @@ export default {
         this.changeSettings({ key: 'fixedSidebar', value: val })
       }
     },
+    tableResizable: {
+      get() {
+        return this.$store.state.settings.tableResizable
+      },
+      set(val) {
+        this.changeSettings({ key: 'tableResizable', value: val })
+      }
+    },
     showTableBorder: {
       get() {
         return this.$store.state.settings.showTableBorder
@@ -359,6 +390,14 @@ export default {
       },
       set(val) {
         this.changeSettings({ key: 'tableSize', value: val })
+      }
+    },
+    tableOperation: {
+      get() {
+        return this.$store.state.settings.tableOperation
+      },
+      set(val) {
+        this.changeSettings({ key: 'tableOperation', value: val })
       }
     }
   },

@@ -4,7 +4,7 @@
  * @Description:设置缓存信息
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-17 17:55:03
+ * @LastEditTime: 2021-09-29 11:36:23
  */
 import { CHANGE_SETTINGS } from '../mutation-types'
 const state = {
@@ -20,6 +20,7 @@ const state = {
   showTagsView: true,
   tagsViewSpeed: 30,
   fixedHeader: true,
+  tableResizable: true,
   showTableBorder: true,
   showTableStripe: true,
   showTableHeader: true,
@@ -29,7 +30,8 @@ const state = {
   showTableOperation: true,
   tableColumnsSettings: {},
   fixTableColumns: true,
-  tableSize: 'default'
+  tableSize: 'default',
+  tableOperation: 'tradition'
 }
 const mutations = {
   [CHANGE_SETTINGS]: (state, { key, value }) => {
