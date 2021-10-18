@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-30 16:43:54
+ * @LastEditTime: 2021-10-08 10:02:29
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -22,11 +22,8 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 
 export default new Vuex.Store({
   state: {
-    token: '',
-    tagsViewList: [{ name: '首页', canClose: false, path: '/home' }]
+    token: ''
   },
-  mutations: {},
-  actions: {},
   modules,
   getters
 })

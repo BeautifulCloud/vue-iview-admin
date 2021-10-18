@@ -4,7 +4,7 @@
  * @Description: sidebar展开
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 10:23:51
+ * @LastEditTime: 2021-10-18 13:15:33
 -->
 <template>
   <div class="sidebar-submenu-block">
@@ -33,11 +33,10 @@
               {{ itemsData.meta.title }}
             </template>
             <MenuItem
-              v-for="(childItem,index) in itemsData.children"
+              v-for="childItem in itemsData.children"
               :key="childItem.name"
-              :name="itemsData.meta.name+'-'+index"
+              :name="childItem.name"
               :to="childItem.meta.toPath"
-              @click.native="dropdownItemClick(itemsData.meta.name,itemsData.meta.name+'-'+index)"
             >{{ childItem.meta.title }}</MenuItem>
           </Submenu>
         </template>
@@ -47,7 +46,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 export default {
   name: 'SubmenuItems',
   props: {},
@@ -60,15 +58,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['changeActiveName']),
     hasOneChild(children = []) {
       if (children) {
         if (children.length > 1) return false
         else return true
       }
-    },
-    dropdownItemClick(menuItemName = 'home', dropdownItemName = '') {
-      this.changeActiveName({ menuItemName, dropdownItemName })
     }
   }
 }

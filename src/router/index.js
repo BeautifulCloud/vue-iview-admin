@@ -4,7 +4,7 @@
  * @Description:  路由index.js
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-16 15:57:23
+ * @LastEditTime: 2021-10-18 10:25:07
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -47,9 +47,8 @@ router.beforeEach(async (to, from, next) => {
       else if (backMenu) next({ path: '/back/home/index', replace: true })
       else next({ path: '/login', replace: true })
     } else {
-      if (frontMenu.length > 0 || backMenu.length > 0) {
-        next()
-      } else {
+      if (frontMenu.length > 0 || backMenu.length > 0) next()
+      else {
         // 通过token获取用户信息 调用user中的action里的getUserViews方法
         store
           .dispatch('getUserViews')

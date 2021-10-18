@@ -4,7 +4,7 @@
  * @Description: sidebar侧边栏
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-14 21:34:33
+ * @LastEditTime: 2021-10-18 13:15:02
 -->
 <template>
   <div class="sidebar" :class="{'has-logo':showLogo}">
@@ -14,8 +14,8 @@
       width="auto"
       :theme="$store.state.settings.themeSidebar?'dark':'light'"
       :accordion="$store.state.settings.sidebarAccordion"
-      :open-names="[menuActiveName]"
-      :active-name="collapsedState?menuActiveName:dropdownActiveName"
+      :open-names="[menuName.openName]"
+      :active-name="collapsedState?menuName.openName:menuName.activeName"
       class="sidebar-menu"
       :class="['menu-item',collapsedState ? 'collapsed-menu' : '']"
     >
@@ -41,7 +41,12 @@ export default {
   name: 'Sidebar',
   components: { Logo, SubmenuItems, DropdownItems },
   data() {
-    return {}
+    return {
+      menuName: {
+        activeName: 'Home',
+        openName: 'Home'
+      }
+    }
   },
   computed: {
     showLogo() {
@@ -52,13 +57,21 @@ export default {
     },
     menuActiveName() {
       return this.$store.state.sidebar.menuActiveName
-    },
-    dropdownActiveName() {
-      return this.$store.state.sidebar.dropdownActiveName
     }
   },
   watch: {
-    '$store.state.sidebar.sidebarCollapsed'(newVal, oldVal) {
+    $route() {
+      const name = {
+        activeName: this.$route.name,
+        openName: this.$route.meta.openName ? this.$route.meta.openName : this.$route.name
+      }
+      this.menuName = Object.assign({}, this.menuName, name)
+      this.$nextTick(function () {
+        this.$refs.sidebarMenu.updateOpened()
+        this.$refs.sidebarMenu.updateActiveName()
+      })
+    },
+    '$store.state.sidebar.sidebarCollapsed'() {
       this.$nextTick(function () {
         this.$refs.sidebarMenu.updateOpened()
         this.$refs.sidebarMenu.updateActiveName()

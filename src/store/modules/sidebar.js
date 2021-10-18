@@ -4,7 +4,7 @@
  * @Description:sideBar
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-30 16:21:04
+ * @LastEditTime: 2021-10-18 10:08:57
  */
 import router from '@/router/index'
 import FrontRoutes from '@/router/modules/front'
@@ -39,14 +39,20 @@ function filterRoutes(routes, roleViews) {
       }
       filteredRts.push(temp)
     }
+    //  else {
+    //   if (temp.hidden && temp.name === '404') {
+    //     debugger
+    //     filteredRts.push(temp)
+    //   }
+    // }
   })
   return filteredRts
 }
 
 const state = {
   sidebarCollapsed: false,
-  menuActiveName: 'home',
-  dropdownActiveName: 'home',
+  menuActiveName: 'Home',
+  dropdownActiveName: 'Home',
   frontMenuList: [],
   backMenuList: []
 }
@@ -68,6 +74,7 @@ const mutations = {
   GENERATE_BACK_ROUTES(state, routes) {
     state.backMenuList = routes
     router.addRoutes(routes)
+    router.addRoutes([{ path: '*', redirect: '/404', hidden: true, name: '404' }])
   }
 }
 

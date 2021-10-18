@@ -4,7 +4,7 @@
  * @Description:
  * @Version: 1.0
  * @LastEditors: 刘轩亨
- * @LastEditTime: 2021-09-30 17:04:50
+ * @LastEditTime: 2021-10-18 11:04:35
  */
 import Layout from '@/views/layout/layout-main/index'
 const Home = 'Home.vue'
@@ -56,7 +56,8 @@ const frontRoutes = [
           toPath: '/components/table',
           noCache: false,
           breadcrumb: false,
-          affix: false
+          affix: false,
+          openName: 'Components'
         },
         hidden: false
       },
@@ -69,7 +70,8 @@ const frontRoutes = [
           toPath: '/components/formSearch',
           noCache: false,
           breadcrumb: false,
-          affix: false
+          affix: false,
+          openName: 'Components'
         },
         hidden: false
       }
@@ -93,7 +95,8 @@ const frontRoutes = [
           toPath: '/front/receive/index',
           noCache: false,
           breadcrumb: false,
-          affix: false
+          affix: false,
+          openName: 'Receive'
         }
       }
     ]
@@ -119,7 +122,8 @@ const frontRoutes = [
           toPath: '/front/content/test1',
           noCache: false,
           breadcrumb: false,
-          affix: false
+          affix: false,
+          openName: 'Content'
         },
         hidden: false
       },
@@ -132,7 +136,8 @@ const frontRoutes = [
           toPath: '/front/content/test2',
           noCache: false,
           breadcrumb: false,
-          affix: false
+          affix: false,
+          openName: 'Content'
         },
         hidden: false
       },
@@ -145,7 +150,8 @@ const frontRoutes = [
           toPath: '/front/content/test3',
           noCache: false,
           breadcrumb: false,
-          affix: false
+          affix: false,
+          openName: 'Content'
         },
         hidden: false
       }
@@ -156,7 +162,7 @@ const frontRoutes = [
     component: Layout,
     redirect: '/front/home/index',
     hidden: false,
-    alwaysShow: false,
+    alwaysShow: true,
     children: [
       {
         path: 'index',
@@ -174,6 +180,7 @@ const frontRoutes = [
       }
     ]
   }
+  // { path: '*', redirect: '/404', hidden: true, name: '404' }
 ]
 
 export default frontRoutes
